@@ -59,8 +59,7 @@
 			children = (
 				45CC099A28204F860041C083 /* AlarmClockApp.swift */,
 				45CC09B028205B3A0041C083 /* View */,
-				45CC09A8282050130041C083 /* Alarm.swift */,
-				45CC09B7282066940041C083 /* Alarms.swift */,
+				45CC09B9282074770041C083 /* Model */,
 				45CC099E28204F870041C083 /* Assets.xcassets */,
 				45CC09A028204F870041C083 /* Preview Content */,
 			);
@@ -82,6 +81,15 @@
 				45CC09AE282055550041C083 /* AddAlarmView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		45CC09B9282074770041C083 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				45CC09A8282050130041C083 /* Alarm.swift */,
+				45CC09B7282066940041C083 /* Alarms.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
