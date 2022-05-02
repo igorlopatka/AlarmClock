@@ -12,6 +12,7 @@
 		45CC099F28204F870041C083 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45CC099E28204F870041C083 /* Assets.xcassets */; };
 		45CC09A228204F870041C083 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45CC09A128204F870041C083 /* Preview Assets.xcassets */; };
 		45CC09A9282050130041C083 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC09A8282050130041C083 /* Alarm.swift */; };
+		45CC09AF282055550041C083 /* AddAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC09AE282055550041C083 /* AddAlarmView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		45CC099E28204F870041C083 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45CC09A128204F870041C083 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		45CC09A8282050130041C083 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		45CC09AE282055550041C083 /* AddAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				45CC099A28204F860041C083 /* AlarmClockApp.swift */,
-				45CC099C28204F860041C083 /* ContentView.swift */,
+				45CC09B028205B3A0041C083 /* View */,
 				45CC09A8282050130041C083 /* Alarm.swift */,
 				45CC099E28204F870041C083 /* Assets.xcassets */,
 				45CC09A028204F870041C083 /* Preview Content */,
@@ -68,6 +70,15 @@
 				45CC09A128204F870041C083 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		45CC09B028205B3A0041C083 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				45CC099C28204F860041C083 /* ContentView.swift */,
+				45CC09AE282055550041C083 /* AddAlarmView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +153,7 @@
 			files = (
 				45CC099D28204F860041C083 /* ContentView.swift in Sources */,
 				45CC099B28204F860041C083 /* AlarmClockApp.swift in Sources */,
+				45CC09AF282055550041C083 /* AddAlarmView.swift in Sources */,
 				45CC09A9282050130041C083 /* Alarm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

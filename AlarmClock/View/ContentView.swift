@@ -15,6 +15,8 @@ struct ContentView: View {
         Alarm(date: Date().addingTimeInterval(+3600), label: "Chuj",isActive: false, isSnooze: false)
         ]
     
+    @State private var isAddingAlarm = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -30,6 +32,9 @@ struct ContentView: View {
                 }
                 .onDelete(perform: delete)
             }
+            .sheet(isPresented: $isAddingAlarm) {
+                AddAlarmView()
+            }
             .navigationBarTitle("AlarmClock")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -37,7 +42,7 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        print("Help tapped!")
+                        isAddingAlarm.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
