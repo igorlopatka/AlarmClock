@@ -31,6 +31,18 @@ struct ContentView: View {
                 .onDelete(perform: delete)
             }
             .navigationBarTitle("AlarmClock")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button() {
+                        print("Help tapped!")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
     
