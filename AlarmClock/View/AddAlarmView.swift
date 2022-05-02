@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddAlarmView: View {
     
+    @ObservedObject var alarms: Alarms
+    
     @State private var date = Date()
     @State private var label = ""
     @State private var isSnoozing = false
@@ -47,6 +49,6 @@ struct AddAlarmView: View {
 
 struct AddAlarmView_Previews: PreviewProvider {
     static var previews: some View {
-        AddAlarmView()
+        AddAlarmView(alarms: Alarms())
     }
 }

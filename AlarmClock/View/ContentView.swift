@@ -8,32 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State var alarms: [Alarm] = [
-        Alarm(date: Date().addingTimeInterval(-3600), label: "Alarm", isActive: true, isSnooze: true),
-        Alarm(date: Date(), label: "Alarm", isActive: true, isSnooze: false),
-        Alarm(date: Date().addingTimeInterval(+3600), label: "Chuj",isActive: false, isSnooze: false)
-        ]
+        
+    @StateObject var alarms = Alarms()
     
     @State private var isAddingAlarm = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(alarms.indices, id: \.self) { index in
+                ForEach(alarms.list.indices, id: \.self) { index in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(self.alarms[index].date, formatter: timeFormat)
+                            Text(self.alarms.list[index].date, formatter: timeFormat)
                                 .font(.largeTitle)
-                            Text(self.alarms[index].label)
+                            Text(self.alarms.list[index].label)
                         }
-                        Toggle("", isOn: self.$alarms[index].isActive)
+                        Toggle("", isOn: self.$alarms.list[index].isActive)
                     }
                 }
                 .onDelete(perform: delete)
             }
             .sheet(isPresented: $isAddingAlarm) {
-                AddAlarmView()
+                AddAlarmView(alarms: alarms)
             }
             .navigationBarTitle("AlarmClock")
             .toolbar {
@@ -58,8 +54,8 @@ struct ContentView: View {
     }()
     
     func delete(at offsets: IndexSet) {
-            alarms.remove(atOffsets: offsets)
-        }
+        alarms.list.remove(atOffsets: offsets)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
