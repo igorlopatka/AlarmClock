@@ -31,15 +31,14 @@ struct AddAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button() {
-                        isPresented = false
+                        cancel()
                     } label: {
                         Text("Cancel")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        
-                        isPresented = false
+                        addAlarm()
                     } label: {
                         Text("Save")
                     }
@@ -47,10 +46,19 @@ struct AddAlarmView: View {
             }
         }
     }
+    
+    private func addAlarm() {
+        let newAlarm = Alarm(
+            date: date,
+            label: label,
+            isActive: true,
+            isSnooze: isSnoozing)
+        
+        alarms.list.append(newAlarm)
+        isPresented = false
+    }
+    
+    private func cancel() {
+        isPresented = false
+    }
 }
-
-//struct AddAlarmView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddAlarmView(alarms: Alarms(), isPresented: true)
-//    }
-//}
