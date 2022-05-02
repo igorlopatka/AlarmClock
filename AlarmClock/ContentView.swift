@@ -28,6 +28,7 @@ struct ContentView: View {
                         Toggle("", isOn: self.$alarms[index].isActive)
                     }
                 }
+                .onDelete(perform: delete)
             }
             .navigationBarTitle("AlarmClock")
         }
@@ -38,6 +39,10 @@ struct ContentView: View {
       formatter.dateFormat = "h:mm"
       return formatter
     }()
+    
+    func delete(at offsets: IndexSet) {
+            alarms.remove(atOffsets: offsets)
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
