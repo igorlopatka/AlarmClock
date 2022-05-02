@@ -10,9 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     @State var alarms: [Alarm] = [
-        Alarm(date: Date().addingTimeInterval(-1000), label: "Alarm", isActive: true, isSnooze: true),
+        Alarm(date: Date().addingTimeInterval(-3600), label: "Alarm", isActive: true, isSnooze: true),
         Alarm(date: Date(), label: "Alarm", isActive: true, isSnooze: false),
-        Alarm(date: Date().addingTimeInterval(+1000), label: "Alarm",isActive: false, isSnooze: false)
+        Alarm(date: Date().addingTimeInterval(+3600), label: "Alarm",isActive: false, isSnooze: false)
         ]
     
     var body: some View {
