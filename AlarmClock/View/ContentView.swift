@@ -29,7 +29,7 @@ struct ContentView: View {
                 .onDelete(perform: delete)
             }
             .sheet(isPresented: $isAddingAlarm) {
-                AddAlarmView(alarms: alarms)
+                AddAlarmView(alarms: alarms, isPresented: $isAddingAlarm)
             }
             .navigationBarTitle("AlarmClock")
             .toolbar {

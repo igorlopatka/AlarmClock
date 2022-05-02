@@ -10,6 +10,7 @@ import SwiftUI
 struct AddAlarmView: View {
     
     @ObservedObject var alarms: Alarms
+    @Binding var isPresented: Bool
     
     @State private var date = Date()
     @State private var label = ""
@@ -30,14 +31,15 @@ struct AddAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button() {
-                        //discard
+                        isPresented = false
                     } label: {
                         Text("Cancel")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        // add alarm
+                        
+                        isPresented = false
                     } label: {
                         Text("Save")
                     }
@@ -47,8 +49,8 @@ struct AddAlarmView: View {
     }
 }
 
-struct AddAlarmView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddAlarmView(alarms: Alarms())
-    }
-}
+//struct AddAlarmView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddAlarmView(alarms: Alarms(), isPresented: true)
+//    }
+//}
