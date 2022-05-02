@@ -8,10 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var alarms: [Alarm] = [
+        Alarm(date: Date().addingTimeInterval(-1000), label: "Alarm", isActive: true, isSnooze: true),
+        Alarm(date: Date(), label: "Alarm", isActive: true, isSnooze: false),
+        Alarm(date: Date().addingTimeInterval(+1000), label: "Alarm",isActive: false, isSnooze: false)
+        ]
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List {
+                ForEach(alarms.indices) { index in
+                    HStack {
+                        VStack {
+                            Text(self.alarms[index].date, formatter: timeFormat)
+                                .font(.largeTitle)
+                            Text(self.alarms[index].label)
+                        }
+                        Toggle("", isOn: self.$alarms[index].isActive)
+                    }
+                }
+            }
+            .navigationBarTitle("AlarmClock")
+        }
     }
+    
+    let timeFormat: DateFormatter = {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "h:mm"
+      return formatter
+    }()
 }
 
 struct ContentView_Previews: PreviewProvider {
