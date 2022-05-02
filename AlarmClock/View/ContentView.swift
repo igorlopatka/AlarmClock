@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var alarms: [Alarm] = [
         Alarm(date: Date().addingTimeInterval(-3600), label: "Alarm", isActive: true, isSnooze: true),
         Alarm(date: Date(), label: "Alarm", isActive: true, isSnooze: false),
-        Alarm(date: Date().addingTimeInterval(+3600), label: "Alarm",isActive: false, isSnooze: false)
+        Alarm(date: Date().addingTimeInterval(+3600), label: "Chuj",isActive: false, isSnooze: false)
         ]
     
     var body: some View {
@@ -20,7 +20,7 @@ struct ContentView: View {
             List {
                 ForEach(alarms.indices, id: \.self) { index in
                     HStack {
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text(self.alarms[index].date, formatter: timeFormat)
                                 .font(.largeTitle)
                             Text(self.alarms[index].label)
