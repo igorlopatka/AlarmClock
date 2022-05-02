@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(alarms.indices) { index in
+                ForEach(alarms.indices, id: \.self) { index in
                     HStack {
                         VStack {
                             Text(self.alarms[index].date, formatter: timeFormat)
