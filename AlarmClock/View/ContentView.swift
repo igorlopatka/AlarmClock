@@ -9,9 +9,11 @@ import SwiftUI
 import UserNotifications
 
 struct ContentView: View {
-        
+     
+    let notification = NotificationManager()
     @StateObject var alarms = Alarms()
     @State private var isAddingAlarm = false
+    
     
     var body: some View {
         NavigationView {
@@ -27,13 +29,16 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: delete)
+                .onAppear(perform: {
+                    notification.requestPermission()
+                })
                 .onChange(of: alarms.list) { updatedList in
                     for alarm in alarms.list {
                         if alarm.isActive {
                             print("Alarm active, \(timeFormat.string(from: alarm.date))")
-                            scheduleAlarm(date: alarm.date)
+                            notification.scheduleAlarm(alarm: alarm)
                         } else {
-                            
+                            notification.removeScheduledAlarm(alarm: alarm)
                         }
                     }
                 }
@@ -53,9 +58,6 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                 }
-            }
-            .onAppear {
-                requestPermission()
             }
         }
     }
@@ -80,38 +82,6 @@ struct ContentView: View {
     
     func delete(at offsets: IndexSet) {
         alarms.list.remove(atOffsets: offsets)
-    }
-    
-    func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("All set!")
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func scheduleAlarm(date: Date) {
-        let content = UNMutableNotificationContent()
-        content.title = "Alarm"
-        
-        let dateString = timeFormat.string(from: date)
-        content.subtitle = dateString
-        
-        content.sound = UNNotificationSound.defaultRingtone
-        
-        let comps = Calendar.current.dateComponents([.hour, .second], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) {(error) in
-            if let error = error {
-                print("error: \(error)")
-            } else {
-                print("Scheduled Notification")
-            }
-        }
     }
 }
 
