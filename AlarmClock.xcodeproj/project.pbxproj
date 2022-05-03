@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45A5EEDB28219F1D0074A98E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5EEDA28219F1D0074A98E /* NotificationManager.swift */; };
+		45A5EEDD2821A2CC0074A98E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5EEDC2821A2CC0074A98E /* AppDelegate.swift */; };
 		45CC099B28204F860041C083 /* AlarmClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC099A28204F860041C083 /* AlarmClockApp.swift */; };
 		45CC099D28204F860041C083 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC099C28204F860041C083 /* ContentView.swift */; };
 		45CC099F28204F870041C083 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45CC099E28204F870041C083 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		45A5EEDA28219F1D0074A98E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		45A5EEDC2821A2CC0074A98E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45CC099728204F860041C083 /* AlarmClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlarmClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CC099A28204F860041C083 /* AlarmClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClockApp.swift; sourceTree = "<group>"; };
 		45CC099C28204F860041C083 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				45CC099A28204F860041C083 /* AlarmClockApp.swift */,
+				45A5EEDC2821A2CC0074A98E /* AppDelegate.swift */,
 				45CC09B028205B3A0041C083 /* View */,
 				45CC09B9282074770041C083 /* Model */,
 				45CC099E28204F870041C083 /* Assets.xcassets */,
@@ -169,6 +172,7 @@
 				45CC099D28204F860041C083 /* ContentView.swift in Sources */,
 				45CC09B8282066940041C083 /* Alarms.swift in Sources */,
 				45CC099B28204F860041C083 /* AlarmClockApp.swift in Sources */,
+				45A5EEDD2821A2CC0074A98E /* AppDelegate.swift in Sources */,
 				45CC09AF282055550041C083 /* AddAlarmView.swift in Sources */,
 				45CC09A9282050130041C083 /* Alarm.swift in Sources */,
 			);
