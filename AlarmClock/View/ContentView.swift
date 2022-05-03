@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
         
@@ -44,6 +45,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear {
+                requestPermission()
+            }
         }
     }
     
@@ -56,6 +60,37 @@ struct ContentView: View {
     func delete(at offsets: IndexSet) {
         alarms.list.remove(atOffsets: offsets)
     }
+    
+    func requestPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func scheduleAlarm(date: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "Alarm"
+        
+        let dateString = timeFormat.string(from: date)
+        content.subtitle = dateString
+        
+        content.sound = UNNotificationSound.default
+        
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
