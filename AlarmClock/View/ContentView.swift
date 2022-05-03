@@ -27,7 +27,16 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: delete)
-
+                .onChange(of: alarms.list) { updatedList in
+                    for alarm in alarms.list {
+                        if alarm.isActive {
+                            print("Alarm active, \(timeFormat.string(from: alarm.date))")
+                            scheduleAlarm(date: alarm.date)
+                        } else {
+                            
+                        }
+                    }
+                }
             }
             .sheet(isPresented: $isAddingAlarm) {
                 AddAlarmView(alarms: alarms, isPresented: $isAddingAlarm)
@@ -90,19 +99,20 @@ struct ContentView: View {
         let dateString = timeFormat.string(from: date)
         content.subtitle = dateString
         
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound.defaultRingtone
         
-        // show this notification five seconds from now
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
-        // choose a random identifier
+        let comps = Calendar.current.dateComponents([.hour, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
-        // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("error: \(error)")
+            } else {
+                print("Scheduled Notification")
+            }
+        }
     }
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
