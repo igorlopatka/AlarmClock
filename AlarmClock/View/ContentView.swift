@@ -11,7 +11,6 @@ import UserNotifications
 struct ContentView: View {
         
     @StateObject var alarms = Alarms()
-    
     @State private var isAddingAlarm = false
     
     var body: some View {
@@ -28,6 +27,7 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: delete)
+
             }
             .sheet(isPresented: $isAddingAlarm) {
                 AddAlarmView(alarms: alarms, isPresented: $isAddingAlarm)
@@ -52,9 +52,21 @@ struct ContentView: View {
     }
     
     let timeFormat: DateFormatter = {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "h:mm"
-      return formatter
+        
+        let dateAsString = "6:35 PM"
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "h:mm a"
+        let date = formatter.date(from: dateAsString)
+
+        formatter.dateFormat = "HH:mm"
+        let date24 = formatter.string(from: date!)
+        
+        
+        let calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = calendar.timeZone
+        
+        return formatter
     }()
     
     func delete(at offsets: IndexSet) {
