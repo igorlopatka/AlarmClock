@@ -9,8 +9,8 @@ import Foundation
 
 class Alarms: ObservableObject {
     @Published var list: [Alarm] = [
-        Alarm(date: Date().addingTimeInterval(-3600), label: "Alarm", isActive: true, isSnooze: true),
-        Alarm(date: Date(), label: "Alarm", isActive: true, isSnooze: false),
-        Alarm(date: Date().addingTimeInterval(+60), label: "Alarm",isActive: false, isSnooze: false)
+        Alarm(date: Calendar.current.date(from: DateComponents(hour: 7, minute: 00)) ?? Date.now, label: "Alarm", isActive: false, isSnooze: false),
+        Alarm(date: Calendar.current.date(from: DateComponents(hour: 8, minute: 00)) ?? Date.now, label: "Alarm", isActive: false, isSnooze: false),
+        Alarm(date: Calendar.current.date(from: DateComponents(hour: 9, minute: 00)) ?? Date.now, label: "Alarm",isActive: false, isSnooze: false)
         ]
 }
