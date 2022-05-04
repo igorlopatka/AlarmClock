@@ -34,7 +34,6 @@ struct ContentView: View {
                 .onChange(of: alarms.list) { updatedList in
                     for alarm in updatedList {
                         if alarm.isActive {
-                            print("Alarm active, \(timeFormat.string(from: alarm.date))")
                             notification.scheduleAlarm(alarm: alarm)
                         } else {
                             notification.removeScheduledAlarm(alarm: alarm)
