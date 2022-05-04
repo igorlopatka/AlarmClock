@@ -13,7 +13,7 @@ class NotificationManager {
     func requestPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
-                print("All set!")
+                print("Permission granted.")
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -28,15 +28,16 @@ class NotificationManager {
         content.body = "Wake up!"
         content.sound = UNNotificationSound.defaultRingtone
         
+        let id = alarm.id.uuidString
         let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
-        let request = UNNotificationRequest(identifier: alarm.id.uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request) {(error) in
             if let error = error {
                 print("error: \(error)")
             } else {
-                print("Scheduled Notification")
+                print("Scheduled Notification, \(id) ")
             }
         }
     }
