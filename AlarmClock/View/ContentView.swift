@@ -14,7 +14,6 @@ struct ContentView: View {
     @StateObject var alarms = Alarms()
     @State private var isAddingAlarm = false
     
-    
     var body: some View {
         NavigationView {
             List {
@@ -33,7 +32,7 @@ struct ContentView: View {
                     notification.requestPermission()
                 })
                 .onChange(of: alarms.list) { updatedList in
-                    for alarm in alarms.list {
+                    for alarm in updatedList {
                         if alarm.isActive {
                             print("Alarm active, \(timeFormat.string(from: alarm.date))")
                             notification.scheduleAlarm(alarm: alarm)
@@ -80,7 +79,7 @@ struct ContentView: View {
         return formatter
     }()
     
-    func delete(at offsets: IndexSet) {
+    private func delete(at offsets: IndexSet) {
         alarms.list.remove(atOffsets: offsets)
     }
 }
