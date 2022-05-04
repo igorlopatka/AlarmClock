@@ -28,7 +28,7 @@ class NotificationManager {
         content.body = "Wake up!"
         content.sound = UNNotificationSound.defaultRingtone
         
-        let comps = Calendar.current.dateComponents([.hour, .second], from: alarm.date)
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
         let request = UNNotificationRequest(identifier: alarm.id.uuidString, content: content, trigger: trigger)
         
