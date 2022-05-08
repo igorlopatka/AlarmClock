@@ -26,7 +26,7 @@ class NotificationManager {
         content.title = "Alarm"
         content.subtitle = alarm.label
         content.body = "Wake up!"
-        content.sound = UNNotificationSound.defaultRingtone
+        content.sound = UNNotificationSound.defaultCritical
         
         let id = alarm.id.uuidString
         let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date)
@@ -43,7 +43,8 @@ class NotificationManager {
     }
     
     func removeScheduledAlarm(alarm: Alarm) {
-      UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [alarm.id.uuidString])
+        let id = alarm.id.uuidString
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: [id])
     }
- }
+}
