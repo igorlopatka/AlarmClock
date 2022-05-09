@@ -5,44 +5,48 @@
 //  Created by Igor Łopatka on 02/05/2022.
 //
 
+import CoreData
 import SwiftUI
 import UserNotifications
 
 struct ContentView: View {
      
     let notification = NotificationManager()
-    @StateObject var alarms = Alarms()
+//    @StateObject var alarms = Alarms()
     @State private var isAddingAlarm = false
+    
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
+    var fetchRequest: FetchRequest<Alarm>
+    var alarms: FetchedResults<Alarm> { fetchRequest.wrappedValue }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(alarms.list.indices, id: \.self) { index in
+                ForEach(alarms, id: \.self) { alarm in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(self.alarms.list[index].date, formatter: timeFormat)
+                            Text(alarm.date!, formatter: timeFormat)
                                 .font(.largeTitle)
-                            Text(self.alarms.list[index].label)
+                            Text(alarm.label!)
                         }
-                        Toggle("", isOn: self.$alarms.list[index].isActive)
+                        Spacer()
+                        Toggle("Activate alarm", isOn: Binding<Bool>(get: {
+                                 alarm.isActive?.boolValue == true
+                              }, set: { value in
+                                 alarm.isActive = NSNumber(value: value)
+                                 manageAlarmState(alarm: alarm, isActive: value)
+                              }))
+                        .labelsHidden()
                     }
                 }
-                .onDelete(perform: delete)
+                .onDelete(perform: deleteAlarm)
                 .onAppear(perform: {
                     notification.requestPermission()
                 })
-                .onChange(of: alarms.list) { updatedList in
-                    for alarm in updatedList {
-                        if alarm.isActive {
-                            notification.scheduleAlarm(alarm: alarm)
-                        } else {
-                            notification.removeScheduledAlarm(alarm: alarm)
-                        }
-                    }
-                }
             }
             .sheet(isPresented: $isAddingAlarm) {
-                AddAlarmView(alarms: alarms, isPresented: $isAddingAlarm)
+                AddAlarmView(isPresented: $isAddingAlarm)
             }
             .navigationBarTitle("AlarmClock")
             .toolbar {
@@ -78,9 +82,33 @@ struct ContentView: View {
         return formatter
     }()
     
-    private func delete(at offsets: IndexSet) {
-        alarms.list.remove(atOffsets: offsets)
+    private func manageAlarmState(alarm: Alarm, isActive: Bool) {
+        if isActive {
+            notification.scheduleAlarm(alarm: alarm)
+        } else {
+            notification.removeScheduledAlarm(alarm: alarm)
+        }
     }
+    
+    private func deleteAlarm(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { alarms[$0] }.forEach(context.delete)
+            do {
+                try context.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    init() {
+            fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors: [
+                NSSortDescriptor(keyPath: \Alarm.date, ascending: true)
+            ])
+        }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

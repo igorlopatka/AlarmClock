@@ -24,13 +24,13 @@ class NotificationManager {
         
         let content = UNMutableNotificationContent()
         content.title = "Alarm"
-        content.subtitle = alarm.label
+        content.subtitle = alarm.label!
         content.body = "Wake up!"
         content.sound = UNNotificationSound.defaultCritical
         
-        let id = alarm.id.uuidString
-        let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+        let id = alarm.id!.uuidString
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date!)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request) {(error) in
@@ -43,7 +43,7 @@ class NotificationManager {
     }
     
     func removeScheduledAlarm(alarm: Alarm) {
-        let id = alarm.id.uuidString
+        let id = alarm.id!.uuidString
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [id])
     }

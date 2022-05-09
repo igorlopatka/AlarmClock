@@ -9,8 +9,10 @@ import SwiftUI
 
 struct AddAlarmView: View {
     
-    @ObservedObject var alarms: Alarms
     @Binding var isPresented: Bool
+    
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     
     @State private var date = Date()
     @State private var label = ""
@@ -27,7 +29,6 @@ struct AddAlarmView: View {
                 Toggle("Snooze", isOn: $isSnoozing)
             }
             .listStyle(.grouped)
-//            .navigationTitle("New alarm")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button() {
@@ -38,7 +39,7 @@ struct AddAlarmView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        addAlarm()
+                        addRun(title: label, date: date)
                     } label: {
                         Text("Save")
                     }
@@ -47,15 +48,22 @@ struct AddAlarmView: View {
         }
     }
     
-    private func addAlarm() {
-        let newAlarm = Alarm(
-            date: date,
-            label: label,
-            isActive: true,
-            isSnooze: isSnoozing)
-        
-        alarms.list.append(newAlarm)
-        isPresented = false
+    private func addRun(title: String, date: Date) {
+        withAnimation {
+            let newAlarm = Alarm(context: context)
+            newAlarm.date = date
+            newAlarm.id = UUID()
+            newAlarm.label = title
+            newAlarm.isActive = false
+            newAlarm.isSnooze = false
+            do {
+                try context.save()
+                cancel()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
     
     private func cancel() {

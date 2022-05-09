@@ -11,10 +11,12 @@ import SwiftUI
 struct AlarmClockApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var dataManager = DataManager()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, dataManager.container.viewContext)
         }
     }
 }
