@@ -12,7 +12,6 @@ import UserNotifications
 struct ContentView: View {
      
     let notification = NotificationManager()
-//    @StateObject var alarms = Alarms()
     @State private var isAddingAlarm = false
     
     @Environment(\.managedObjectContext) var context

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4537F2CC282AD6BC003A4E18 /* alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4537F2CB282AD6BC003A4E18 /* alarm.wav */; };
 		454C3B4428290C5200F34D86 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C3B4328290C5200F34D86 /* DataManager.swift */; };
 		459AEF7D2829115E00C095D8 /* AlarmClock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 459AEF7B2829115E00C095D8 /* AlarmClock.xcdatamodeld */; };
 		45A5EEDB28219F1D0074A98E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5EEDA28219F1D0074A98E /* NotificationManager.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4537F2CB282AD6BC003A4E18 /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm.wav; sourceTree = "<group>"; };
 		454C3B4328290C5200F34D86 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		459AEF7C2829115E00C095D8 /* AlarmClock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlarmClock.xcdatamodel; sourceTree = "<group>"; };
 		45A5EEDA28219F1D0074A98E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				45CC09B028205B3A0041C083 /* View */,
 				45CC09B9282074770041C083 /* Model */,
 				45CC099E28204F870041C083 /* Assets.xcassets */,
+				4537F2CB282AD6BC003A4E18 /* alarm.wav */,
 				45CC09A028204F870041C083 /* Preview Content */,
 			);
 			path = AlarmClock;
@@ -158,6 +161,7 @@
 			files = (
 				45CC09A228204F870041C083 /* Preview Assets.xcassets in Resources */,
 				45CC099F28204F870041C083 /* Assets.xcassets in Resources */,
+				4537F2CC282AD6BC003A4E18 /* alarm.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
