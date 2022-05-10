@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-class NotificationManager {
+class NotificationManager: ObservableObject {
     
     func requestPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
@@ -27,6 +27,8 @@ class NotificationManager {
         content.body = "Wake up!"
         content.subtitle = alarm.label!
         
+        content.categoryIdentifier = "ACTIONS"
+        
         content.sound = UNNotificationSound(named: UNNotificationSoundName("alarm.wav"))
         
         let id = alarm.id!.uuidString
@@ -36,6 +38,11 @@ class NotificationManager {
         let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
+        let snooze = UNNotificationAction(identifier: "SNOOZE", title: "Snooze")
+        let category = UNNotificationCategory(identifier: "ACTIONS", actions: [snooze], intentIdentifiers: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
         UNUserNotificationCenter.current().add(request) {(error) in
             if let error = error {
                 print("error: \(error)")
@@ -44,6 +51,29 @@ class NotificationManager {
             }
         }
     }
+    
+    func scheduleSnooze() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Alarm"
+        content.body = "Snooze"
+        
+        content.sound = UNNotificationSound(named: UNNotificationSoundName("alarm.wav"))
+
+        let comps = Calendar.current.dateComponents([.hour, .minute], from: Date().addingTimeInterval(60))
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+        let request = UNNotificationRequest(identifier: "snooze_id", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("error: \(error)")
+            } else {
+                print("Scheduled Snooze")
+            }
+        }
+    }
+    
+    
     
     func removeScheduledAlarm(alarm: Alarm) {
         let id = alarm.id!.uuidString

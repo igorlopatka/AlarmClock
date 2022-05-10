@@ -16,7 +16,6 @@ struct AddAlarmView: View {
     
     @State private var date = Date()
     @State private var label = ""
-    @State private var isSnoozing = false
     
     var body: some View {
         NavigationView {
@@ -26,7 +25,6 @@ struct AddAlarmView: View {
                     .font(.largeTitle)
                 DatePicker("", selection: $date, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.wheel)
-                Toggle("Snooze", isOn: $isSnoozing)
             }
             .listStyle(.grouped)
             .toolbar {
@@ -55,7 +53,6 @@ struct AddAlarmView: View {
             newAlarm.id = UUID()
             newAlarm.label = title
             newAlarm.isActive = false
-            newAlarm.isSnooze = false
             do {
                 try context.save()
                 cancel()
