@@ -52,29 +52,6 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func scheduleSnooze() {
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Alarm"
-        content.body = "Snooze"
-        
-        content.sound = UNNotificationSound(named: UNNotificationSoundName("alarm.wav"))
-
-        let comps = Calendar.current.dateComponents([.hour, .minute], from: Date().addingTimeInterval(60))
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
-        let request = UNNotificationRequest(identifier: "snooze_id", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) {(error) in
-            if let error = error {
-                print("error: \(error)")
-            } else {
-                print("Scheduled Snooze")
-            }
-        }
-    }
-    
-    
-    
     func removeScheduledAlarm(alarm: Alarm) {
         let id = alarm.id!.uuidString
         UNUserNotificationCenter.current()

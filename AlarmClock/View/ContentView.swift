@@ -10,7 +10,7 @@ import SwiftUI
 import UserNotifications
 
 struct ContentView: View {
-     
+    
     let notification = NotificationManager()
     @State private var isAddingAlarm = false
     
@@ -31,11 +31,11 @@ struct ContentView: View {
                         }
                         Spacer()
                         Toggle("Activate alarm", isOn: Binding<Bool>(get: {
-                                 alarm.isActive?.boolValue == true
-                              }, set: { value in
-                                 alarm.isActive = NSNumber(value: value)
-                                 manageAlarmState(alarm: alarm, isActive: value)
-                              }))
+                            alarm.isActive?.boolValue == true
+                        }, set: { value in
+                            alarm.isActive = NSNumber(value: value)
+                            manageAlarmState(alarm: alarm, isActive: value)
+                        }))
                         .labelsHidden()
                     }
                 }
@@ -64,20 +64,14 @@ struct ContentView: View {
     }
     
     let timeFormat: DateFormatter = {
-        
         let dateAsString = "6:35 PM"
         let formatter = DateFormatter()
-        
         formatter.dateFormat = "h:mm a"
         let date = formatter.date(from: dateAsString)
-
         formatter.dateFormat = "HH:mm"
         let date24 = formatter.string(from: date!)
-        
-        
         let calendar = Calendar(identifier: .gregorian)
         formatter.timeZone = calendar.timeZone
-        
         return formatter
     }()
     
@@ -102,12 +96,10 @@ struct ContentView: View {
     }
     
     init() {
-            fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors: [
-                NSSortDescriptor(keyPath: \Alarm.date, ascending: true)
-            ])
-        }
-    
-    
+        fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors: [
+            NSSortDescriptor(keyPath: \Alarm.date, ascending: true)
+        ])
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
