@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-@MainActor class ViewModel: ObservableObject {
+class ViewModel: ObservableObject {
     
     @Published var notification = NotificationManager()
     @Published var data = DataManager()
