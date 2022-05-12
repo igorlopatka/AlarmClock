@@ -25,7 +25,7 @@ class NotificationManager: ObservableObject {
         let content = UNMutableNotificationContent()
         content.title = "Alarm"
         content.body = "Wake up!"
-        content.subtitle = alarm.label!
+        content.subtitle = alarm.label ?? ""
         
         content.categoryIdentifier = "ACTIONS"
         

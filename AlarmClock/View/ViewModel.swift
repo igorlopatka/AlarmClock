@@ -8,9 +8,10 @@
 import Foundation
 import CoreData
 
-class ContentVM: ObservableObject {
+@MainActor class ViewModel: ObservableObject {
     
     @Published var notification = NotificationManager()
+    @Published var data = DataManager()
     
     let timeFormat: DateFormatter = {
         let dateAsString = "6:35 PM"
@@ -31,4 +32,9 @@ class ContentVM: ObservableObject {
             notification.removeScheduledAlarm(alarm: alarm)
         }
     }
+    
+    func updateView(){
+        self.objectWillChange.send()
+    }
 }
+

@@ -11,19 +11,14 @@ import UserNotifications
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = ContentVM()
-    @State private var isAddingAlarm = false
     
-    @Environment(\.managedObjectContext) var context
-    @Environment(\.dismiss) var dismiss
-    var fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors:
-    [NSSortDescriptor(keyPath: \Alarm.date, ascending: true)])
-    var alarms: FetchedResults<Alarm> { fetchRequest.wrappedValue }
+    @StateObject var viewModel = ViewModel()
+    @State private var isAddingAlarm = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(alarms, id: \.self) { alarm in
+                ForEach(viewModel.data.alarms, id: \.self) { alarm in
                     HStack {
                         VStack(alignment: .leading) {
                             Text(alarm.date!, formatter: viewModel.timeFormat)
@@ -40,13 +35,14 @@ struct ContentView: View {
                         .labelsHidden()
                     }
                 }
-                .onDelete(perform: deleteAlarm)
+                .onDelete(perform: viewModel.data.deleteAlarm)
                 .onAppear(perform: {
                     viewModel.notification.requestPermission()
+                    viewModel.updateView()
                 })
             }
             .sheet(isPresented: $isAddingAlarm) {
-                AddAlarmView(isPresented: $isAddingAlarm)
+                AddAlarmView(isPresented: $isAddingAlarm, viewModel: viewModel)
             }
             .navigationBarTitle("AlarmClock")
             .toolbar {
@@ -63,22 +59,5 @@ struct ContentView: View {
             }
         }
     }
-    
-    private func deleteAlarm(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { alarms[$0] }.forEach(context.delete)
-            do {
-                try context.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

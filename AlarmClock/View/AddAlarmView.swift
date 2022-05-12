@@ -10,12 +10,11 @@ import SwiftUI
 struct AddAlarmView: View {
     
     @Binding var isPresented: Bool
-    
-    @Environment(\.managedObjectContext) var context
-    @Environment(\.dismiss) var dismiss
-    
+
+    @ObservedObject var viewModel: ViewModel
     @State private var date = Date()
     @State private var label = ""
+    
     
     var body: some View {
         NavigationView {
@@ -37,7 +36,9 @@ struct AddAlarmView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        addRun(title: label, date: date)
+                        viewModel.data.addAlarm(label: label, date: date)
+                        viewModel.updateView()
+                        cancel()
                     } label: {
                         Text("Save")
                     }
@@ -45,24 +46,7 @@ struct AddAlarmView: View {
             }
         }
     }
-    
-    private func addRun(title: String, date: Date) {
-        withAnimation {
-            let newAlarm = Alarm(context: context)
-            newAlarm.date = date
-            newAlarm.id = UUID()
-            newAlarm.label = title
-            newAlarm.isActive = false
-            do {
-                try context.save()
-                cancel()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
+
     private func cancel() {
         isPresented = false
     }
