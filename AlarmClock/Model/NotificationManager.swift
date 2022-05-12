@@ -56,6 +56,7 @@ class NotificationManager: ObservableObject {
         let id = alarm.id!.uuidString
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [id])
+        print("Removed notification, \(id) ")
     }
 
 }
