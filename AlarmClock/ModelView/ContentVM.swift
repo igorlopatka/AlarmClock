@@ -23,4 +23,12 @@ class ContentVM: ObservableObject {
         formatter.timeZone = calendar.timeZone
         return formatter
     }()
+    
+    func manageAlarmState(alarm: Alarm, isActive: Bool) {
+        if isActive {
+            notification.scheduleAlarm(alarm: alarm)
+        } else {
+            notification.removeScheduledAlarm(alarm: alarm)
+        }
+    }
 }

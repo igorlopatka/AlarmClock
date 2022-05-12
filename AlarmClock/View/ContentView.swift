@@ -35,7 +35,7 @@ struct ContentView: View {
                             alarm.isActive?.boolValue == true
                         }, set: { value in
                             alarm.isActive = NSNumber(value: value)
-                            viewModel.notification.manageAlarmState(alarm: alarm, isActive: value)
+                            viewModel.manageAlarmState(alarm: alarm, isActive: value)
                         }))
                         .labelsHidden()
                     }
