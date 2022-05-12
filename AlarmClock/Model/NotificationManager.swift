@@ -32,8 +32,7 @@ class NotificationManager: ObservableObject {
         content.sound = UNNotificationSound(named: UNNotificationSoundName("alarm.wav"))
         
         let id = alarm.id!.uuidString
-        
-
+    
         let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: alarm.date!)
         let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
@@ -58,5 +57,4 @@ class NotificationManager: ObservableObject {
             .removePendingNotificationRequests(withIdentifiers: [id])
         print("Removed notification, \(id) ")
     }
-
 }

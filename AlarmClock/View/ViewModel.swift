@@ -32,7 +32,7 @@ class ViewModel: ObservableObject {
             notification.removeScheduledAlarm(alarm: alarm)
         }
     }
-    
+        
     func updateView(){
         self.objectWillChange.send()
     }

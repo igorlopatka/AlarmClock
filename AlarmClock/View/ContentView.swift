@@ -11,7 +11,6 @@ import UserNotifications
 
 struct ContentView: View {
     
-    
     @StateObject var viewModel = ViewModel()
     @State private var isAddingAlarm = false
     
@@ -38,7 +37,6 @@ struct ContentView: View {
                 .onDelete(perform: viewModel.data.deleteAlarm)
                 .onAppear(perform: {
                     viewModel.notification.requestPermission()
-                    viewModel.updateView()
                 })
             }
             .sheet(isPresented: $isAddingAlarm) {

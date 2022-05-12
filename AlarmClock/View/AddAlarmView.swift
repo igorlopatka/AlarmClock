@@ -10,11 +10,9 @@ import SwiftUI
 struct AddAlarmView: View {
     
     @Binding var isPresented: Bool
-
     @ObservedObject var viewModel: ViewModel
     @State private var date = Date()
     @State private var label = ""
-    
     
     var body: some View {
         NavigationView {
@@ -46,7 +44,7 @@ struct AddAlarmView: View {
             }
         }
     }
-
+    
     private func cancel() {
         isPresented = false
     }
