@@ -11,12 +11,13 @@ import UserNotifications
 
 struct ContentView: View {
     
-    let notification = NotificationManager()
+    @StateObject private var viewModel = ContentVM()
     @State private var isAddingAlarm = false
     
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    var fetchRequest: FetchRequest<Alarm>
+    var fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors:
+    [NSSortDescriptor(keyPath: \Alarm.date, ascending: true)])
     var alarms: FetchedResults<Alarm> { fetchRequest.wrappedValue }
     
     var body: some View {
@@ -25,7 +26,7 @@ struct ContentView: View {
                 ForEach(alarms, id: \.self) { alarm in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(alarm.date!, formatter: timeFormat)
+                            Text(alarm.date!, formatter: viewModel.timeFormat)
                                 .font(.largeTitle)
                             Text(alarm.label!)
                         }
@@ -34,14 +35,14 @@ struct ContentView: View {
                             alarm.isActive?.boolValue == true
                         }, set: { value in
                             alarm.isActive = NSNumber(value: value)
-                            manageAlarmState(alarm: alarm, isActive: value)
+                            viewModel.notification.manageAlarmState(alarm: alarm, isActive: value)
                         }))
                         .labelsHidden()
                     }
                 }
                 .onDelete(perform: deleteAlarm)
                 .onAppear(perform: {
-                    notification.requestPermission()
+                    viewModel.notification.requestPermission()
                 })
             }
             .sheet(isPresented: $isAddingAlarm) {
@@ -63,26 +64,6 @@ struct ContentView: View {
         }
     }
     
-    let timeFormat: DateFormatter = {
-        let dateAsString = "6:35 PM"
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        let date = formatter.date(from: dateAsString)
-        formatter.dateFormat = "HH:mm"
-        let date24 = formatter.string(from: date!)
-        let calendar = Calendar(identifier: .gregorian)
-        formatter.timeZone = calendar.timeZone
-        return formatter
-    }()
-    
-    private func manageAlarmState(alarm: Alarm, isActive: Bool) {
-        if isActive {
-            notification.scheduleAlarm(alarm: alarm)
-        } else {
-            notification.removeScheduledAlarm(alarm: alarm)
-        }
-    }
-    
     private func deleteAlarm(offsets: IndexSet) {
         withAnimation {
             offsets.map { alarms[$0] }.forEach(context.delete)
@@ -93,12 +74,6 @@ struct ContentView: View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
-    }
-    
-    init() {
-        fetchRequest = FetchRequest<Alarm>(entity: Alarm.entity(), sortDescriptors: [
-            NSSortDescriptor(keyPath: \Alarm.date, ascending: true)
-        ])
     }
 }
 

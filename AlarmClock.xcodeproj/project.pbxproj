@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4514F065282D145100365C5A /* AddAlarmVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4514F064282D145100365C5A /* AddAlarmVM.swift */; };
+		4514F067282D145E00365C5A /* ContentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4514F066282D145E00365C5A /* ContentVM.swift */; };
 		4537F2CC282AD6BC003A4E18 /* alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4537F2CB282AD6BC003A4E18 /* alarm.wav */; };
 		454C3B4428290C5200F34D86 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C3B4328290C5200F34D86 /* DataManager.swift */; };
 		459AEF7D2829115E00C095D8 /* AlarmClock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 459AEF7B2829115E00C095D8 /* AlarmClock.xcdatamodeld */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4514F064282D145100365C5A /* AddAlarmVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmVM.swift; sourceTree = "<group>"; };
+		4514F066282D145E00365C5A /* ContentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVM.swift; sourceTree = "<group>"; };
 		4537F2CB282AD6BC003A4E18 /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm.wav; sourceTree = "<group>"; };
 		454C3B4328290C5200F34D86 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		459AEF7C2829115E00C095D8 /* AlarmClock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlarmClock.xcdatamodel; sourceTree = "<group>"; };
@@ -44,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4514F063282D142500365C5A /* ModelView */ = {
+			isa = PBXGroup;
+			children = (
+				4514F066282D145E00365C5A /* ContentVM.swift */,
+				4514F064282D145100365C5A /* AddAlarmVM.swift */,
+			);
+			path = ModelView;
+			sourceTree = "<group>";
+		};
 		45CC098E28204F860041C083 = {
 			isa = PBXGroup;
 			children = (
@@ -65,8 +78,9 @@
 			children = (
 				45CC099A28204F860041C083 /* AlarmClockApp.swift */,
 				45A5EEDC2821A2CC0074A98E /* AppDelegate.swift */,
-				45CC09B028205B3A0041C083 /* View */,
 				45CC09B9282074770041C083 /* Model */,
+				45CC09B028205B3A0041C083 /* View */,
+				4514F063282D142500365C5A /* ModelView */,
 				45CC099E28204F870041C083 /* Assets.xcassets */,
 				4537F2CB282AD6BC003A4E18 /* alarm.wav */,
 				45CC09A028204F870041C083 /* Preview Content */,
@@ -176,7 +190,9 @@
 				454C3B4428290C5200F34D86 /* DataManager.swift in Sources */,
 				45CC099D28204F860041C083 /* ContentView.swift in Sources */,
 				459AEF7D2829115E00C095D8 /* AlarmClock.xcdatamodeld in Sources */,
+				4514F065282D145100365C5A /* AddAlarmVM.swift in Sources */,
 				45CC099B28204F860041C083 /* AlarmClockApp.swift in Sources */,
+				4514F067282D145E00365C5A /* ContentVM.swift in Sources */,
 				45A5EEDD2821A2CC0074A98E /* AppDelegate.swift in Sources */,
 				45CC09AF282055550041C083 /* AddAlarmView.swift in Sources */,
 			);

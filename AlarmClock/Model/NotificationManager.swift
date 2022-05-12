@@ -57,4 +57,12 @@ class NotificationManager: ObservableObject {
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [id])
     }
+    
+    func manageAlarmState(alarm: Alarm, isActive: Bool) {
+        if isActive {
+            scheduleAlarm(alarm: alarm)
+        } else {
+            removeScheduledAlarm(alarm: alarm)
+        }
+    }
 }
