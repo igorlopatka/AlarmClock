@@ -27,7 +27,7 @@ struct AddAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button() {
-                        cancel()
+                        isPresented = false
                     } label: {
                         Text("Cancel")
                     }
@@ -36,16 +36,12 @@ struct AddAlarmView: View {
                     Button() {
                         viewModel.data.addAlarm(label: label, date: date)
                         viewModel.updateView()
-                        cancel()
+                        isPresented = false
                     } label: {
                         Text("Save")
                     }
                 }
             }
         }
-    }
-    
-    private func cancel() {
-        isPresented = false
     }
 }
