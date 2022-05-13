@@ -32,6 +32,7 @@ class DataManager: ObservableObject {
             print("Error getting data: \(error.localizedDescription)")
         }
     }
+
     
     func addAlarm(label: String, date: Date) {
         let newAlarm = Alarm(context: container.viewContext)

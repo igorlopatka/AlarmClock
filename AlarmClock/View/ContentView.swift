@@ -5,9 +5,8 @@
 //  Created by Igor Łopatka on 02/05/2022.
 //
 
-import CoreData
+
 import SwiftUI
-import UserNotifications
 
 struct ContentView: View {
     
@@ -37,6 +36,8 @@ struct ContentView: View {
                 .onDelete(perform: viewModel.data.deleteAlarm)
                 .onAppear(perform: {
                     viewModel.notification.requestPermission()
+                    viewModel.data.getAlarms()
+                    viewModel.updateView()
                 })
             }
             .sheet(isPresented: $isAddingAlarm) {
